@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>BBS</title>
+<link rel="stylesheet" type="text/css" href="../main.css"></link>
+<meta charset="UTF-8">
+</head>
+<body> 
+<style>
+ body {
+   /*背景が画像を挿入していますが、色でもOK */
+  background-image: url("/images/sense.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+}
+    #white{color:white;
+    font-size:30px;
+    }
+    #good{color:red;
+    width:100px;
+    height:100px;
+    }
+    #cc{
+        float:right;
+    }
+    #bb{
+        margin-left:140px;
+    }
+    #aa{
+        width: 150px; 
+        height: 50px; 
+        background-color:red;
+        font-size:20px;
+        color:white;
+    }
+</style>
+<img id="cc" src="/images/boast.jpg">
+<div align="center">
+<img id="bb" src="/images/cool2.jpg">
+<span style="color:white">
+<p><span style="margin-left:200px">Fill out the form below</span></p></span>
+<div id="white">
+<form action="/new"method="post" enctype="multipart/form-data">
+    <span style="color:#990033; margin-left:300px">
+    <P>NAME:<input type="text" name="user_name"></P></span>
+    <span style="color:#6532ff">
+    <p>Things of Boast:<input type="text" name="body"></p></span>
+    <p><input type="file" name="file"></p>
+    <p><input id="aa" type="submit" value="Showoff!"></p>
+</form>
+
+
+<ul>
+        <% @contents.each do |content| %>
+        <p><%= content.name %></p>
+        <p><%= content.body %></p>
+        <% unless content.img.empty? %>
+        <p><img src="<%= content.img %>"></p>
+        <% end %>
+        <span><%= content.good %></span>
+        <span>
+            <form action="good/<%= content.id %>" method="post">
+            <input type="submit" value="いいね">
+            </form>
+        </span>
+        <span>
+        <form action="/delete/<%= content.id %>" method="post">
+            <input type="submit" value="削除">
+        </form>
+        </span>
+        <span>
+            <form action="/edit/<%= content.id %>" method="post">
+                <input type="submit" value="編集">
+            </form>
+        </span>
+    <% end %>
+    </ul></div>
+    </div>
+</body>
+</html>
